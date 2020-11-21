@@ -1,0 +1,138 @@
+Database
+Collection of related data items within a specific business process or problem setting
+Database Management System
+The software package used to define, create, use, and maintain a database. Example: SIS
+File-based system
+An approach to making a database where every application stored its data into its own dedicated files.
+Why are file-based systems bad?
+Duplicate information is stored in multiple files. Danger of inconsistent data (customer data was only updated in one place). Strong coupling between applications and the data (structural change in data requires changes in all applications using that data). Concurrency control is hard to manage. Hard to integrate applications with cross-company services
+Database approach (apposed to file-based) main difference
+All data is stored and managed by a central DBMS
+Advantages of database approach
+Metadata is managed by the DBMS instead of individual applications. Superior efficiency, consistency, and maintenance. Querying and retrieval facilities are provided by DBMS instead of individual applications
+File-based approach results in a strong ___ dependence, whereas the database approach allows for ___ to be ___ from the ___ and ___.
+File-based approach results in a strong *application-data* dependence, whereas the database approach allows for *applications* to be *independent* from the *data* and *data definitions*.
+Metadata
+The data definitions stored in the catalog of the DBMS (metadata is synonymous with the full collection of data definitions)
+Data definitions
+Descriptions of the data. Specifies various data items, their characteristics, relations with each other, constraints, value types, etc.
+Data definitions examples
+Student(number, name, address, email), Course(number, name), Building(number, address)
+Characteristics (of a data item from a data definition)
+The attributes which describe the data item. Example: A student is characterized by a number, name, address, and email (see previous card)
+Database model/schema
+A model which provides the description of the database data at different levels of detail and specifies the data definitions (various data items, their characteristics, and relations, constraints, storage details, etc.)
+4 parts of the database model
+Conceptual data model. Logical data model. Internal data model. External data model
+Conceptual data model
+Provides a high-level description of data items with their characteristics and relationships. It is used to communicate between the information architect and the business user about data requirements. Example: Supplier(supplier_name), Product(product_number) A supplier can supply products
+Logical data model
+Mapping of conceptual data model towards an implementation environment. It can be mapped to an internal data model
+Internal data model
+Mapped from a logical data model. Represents the data's physical storage details. (Described which data are stored where, in what format, which indexes are provided to speed up retrieval, etc.)
+External data model
+Contains what the user sees (subsets of the logical model for specific applications or groups of users). Example: students and professors see different SIS information
+Enhanced Entity Relationship model
+A model used to represent a conceptual data model (or an object-oriented model could be used)
+The ___ is specified during database design and is not expected to change frequently
+The *database model* is specified during database design and is not expected to change frequently
+Where is the database model stored?
+Catalog
+Catalog
+The heart of the DBMS (contains many things, such as metadata.) Stores the definition of views, logical and internal data models, and synchronizes the 3 data models to ensure their consistency
+Database state
+Represents the data in the database at a particular moment. It typically changes on an ongoing basis
+The three-layer architecture
+Essential part of every database application and describes how underlying data models are related. Contains: External layer, Conceptual/logical layer, Internal layer
+External layer
+Made up of different views which different types of applications or users have access to
+Conceptual/logical layer
+The conceptual and logical data models are here
+Internal layer
+Holds the internal data model
+What is the point of the three-layer architecture?
+Changes in one layer should have minimal impact on the others; physical and logical data independence
+A(n) ___ designs the conceptual data model. They interact closely with the ___ to make sure the data requirements are fully modeled
+An *information architect* designs the conceptual data model. They interact closely with the *business user* to make sure the data requirements are fully modeled
+A(n) ___ translates the conceptual data model into a(n) ___ and ___ model
+A *database designer* translates the conceptual data model into a *logical* and *internal* model
+The ___ implements and monitors the database by inspecting key performance measures
+The *database administrator (DBA)* implements and monitors the database by inspecting key performance measures
+Some key performance measures
+Response times, Throughput rates, Storage space consumed
+The ___ develops database applications. They provide the ___, which are then translated by the DBA into view definitions. They can also directly query the database using interactive querying facilities for reporting purposes
+The *application developer* develops database applications. They provide the *data requirements*, which are then translated by the DBA into view definitions. They can also directly query the database using interactive querying facilities for reporting purposes
+Data definition language (DDL)
+Used by the DBA to express the database's external, logical, and internal data models (stored in catalog). Example: SQL
+Data manipulation language (DML)
+Used to retrieve, insert, delete, and modify data. Example: SQL
+Data independence
+Changes in data should have minimal impact on applications using the data
+Physical data independence
+Neither applications, views, or logical data model must be changed when changes are made to data storage specifications in the internal data model. Example: adding a new storage facility and moving some existing data over to there shouldn't require changes to applications, views, or the logical data model
+How do you guarantee physical data independence?
+The DBMS must provide interfaces between logical and internal layers
+Logical data independence
+Changes in conceptual or logical data models should cause applications to require minimal changes. Example: adding new data items, characteristics, or relationships
+How do you guarantee logical data independence?
+The DBMS must provide interfaces between conceptual/logical and external layers
+A(n) ___ is an explicit representation of the data items together with their characteristics and relationships
+A *data model* is an explicit representation of the data items together with their characteristics and relationships
+Why is it important to document a data model's assumptions and shortcomings?
+A best-case scenario with perfect mapping is often unrealistic, so it's useful to know when mapping breaks down
+Structured data
+Data where individual characteristics of data items are already formatted. Easily parsed
+Unstructured data
+Data without any format. Hard to parse. Example: figuring out which people are born in New York versus live in New York from parsing a text file of an autobiography
+Semi-structured data
+Data which may have some structure, but the structure may be irregular or volatile. Example: different peoples' resumé documents have loosely the same structure
+Why is redundant data sometimes good?
+To improve data retrieval performance (slow network connections)
+How does the DBMS manage redundant data?
+An update of a local copy will automatically propagate to all duplicates stored at other locations
+Compared to the file approach, the DBMS guarantees ___ of data
+Compared to the file approach, the DBMS guarantees *correctness* of data
+Integrity rules
+Rules that enforce the correctness of data (to keep database consistent)
+Syntactical rules
+How data should be represented and stored. Example: customerID should be an integer
+Semantic rules
+Focuses on the meaning of the data. Example: customerID should be unique, account balance should be no less than 0, and a customer cannot be deleted if they have pending invoices
+In a file-based approach, integrity rules have to be ___. In a database approach, they are specified as part of the ___ and stored in the ___.
+In a file-based approach, integrity rules have to be *embedded in every application*. In a database approach, they are specified as part of the *conceptual/logical data model* and stored in the *catalog*.
+Risk of embedding integrity rules in file-based approach
+Every application has embedded integrity rules => lots of duplication of code => higher risk of inconsistencies
+Database transaction
+A series of read/write operations. Either all operations are executed or none at all
+Lost-update problem
+When 2 transactions are run in parallel and the last transaction to finish overwrites the other's change by using the old value
+ACID
+A way to ensure database transactions are processed in a reliable way. Atomicity. Consistency. Isolation. Durability
+Atomicity
+A transaction should either be executed in its entirety or not at all (a transaction is an atomic unit)
+Consistency
+A transaction brings the database from one consistent state to another
+Isolation
+Concurrent transactions should be the same as if they were executed in isolation
+Durability
+A transaction declared successful is a permanent change
+Backup facilities
+Performs either a full or incremental backup
+Recovery facilities
+Allows restoration to a previous state after damage or loss
+How does the DBMS enforce data security?
+Users are part of groups. Some groups have read access while others have write access (role-based functionality)
+Data access can be managed via ___ and ___ assigned to users
+Data access can be managed via *logins* and *passwords* assigned to users
+Each account has its own ___, which are stored in the ___.
+Each account has its own *authorization rules*, which are stored in the *catalog*.
+3 key performance indicators (KPI)
+Response time, Throughput rate, Space utilization
+Response time
+Time elapsed between issuing a database request (query/update) and the successful termination
+Throughput
+Transactions processed per unit of time
+Space utilization
+Space utilized to store both the raw data and the metadata
+What facilities do DBMS have to improve the 3 KPIs?
+Facilities to: distribute and optimize data storage, tune indexes for faster query execution, tune queries to improve application performance, optimize buffer management
