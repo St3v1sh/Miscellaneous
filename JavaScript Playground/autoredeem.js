@@ -5,7 +5,7 @@
  * This code also assumes that the target redeem has no cooldown.
  * 
  * @author  sky3947@rit.edu
- * @since   10.29.2021
+ * @since   11.2.2021
  */
 
 const TARGET_REDEEM = 'Hydrate';
@@ -76,6 +76,7 @@ const autoClick = (state) => {
       
       btnConfirm = confirmButtons[0].children[0];
       // btnConfirm.click();
+      btnOpenRedeems.click();
       iteration++;
       autoClicker(nextState(state));
       return;
