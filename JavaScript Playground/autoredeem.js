@@ -5,7 +5,7 @@
  * This code also assumes that the target redeem has no cooldown.
  *
  * @author  sky3947@rit.edu
- * @since   4.21.2022
+ * @since   1.18.2023
  */
 
 const TARGET_REDEEM = 'Hydrate';
