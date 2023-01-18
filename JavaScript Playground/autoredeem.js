@@ -10,8 +10,8 @@
 
 const TARGET_REDEEM = 'Hydrate';
 
-const REDEEMS_CLASS_NAME = 'Layout-sc-nxg1ff-0 eUGccq rewards-list';
-const CONFIRM_BUTTONS_CLASS_NAME = 'Layout-sc-nxg1ff-0 dTEEED';
+const REDEEMS_CLASS_NAME = "Layout-sc-1xcs6mc-0 bftvMr rewards-list"
+const CONFIRM_BUTTONS_CLASS_NAME = 'ScCoreButton-sc-ocjdkq-0 ScCoreButtonPrimary-sc-ocjdkq-1 ibtYyW eVWnXL';
 
 const $className = (className) => document.getElementsByClassName(className);
 const $qSelectorAll = (query) => document.querySelectorAll(query);
