@@ -15,7 +15,7 @@ let getRedeemButton = () => document.querySelector(`[title="${TARGET_REDEEM}"]`)
 let getConfirmButton = () => document.querySelector('[data-test-selector="RewardText"]').parentNode.parentElement.parentElement.parentElement;
 
 let iteration = 0;
-let maxIterations = 100;
+let maxIterations = 1;
 const q = () => iteration = maxIterations;
 
 const States = {
@@ -58,7 +58,7 @@ const autoClick = (state) => {
         return;
       }
 
-      getConfirmButton().click();
+      // getConfirmButton().click();
       getOpenRedeemsMenuButton().click();
       iteration++;
       autoClicker(nextState(state));
