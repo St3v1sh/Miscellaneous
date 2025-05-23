@@ -8,20 +8,14 @@
  * @since   1.18.2023
  */
 
-const TARGET_REDEEM = 'Hydrate';
+let TARGET_REDEEM = 'Hydrate';
 
-const REDEEMS_CLASS_NAME = "Layout-sc-1xcs6mc-0 bftvMr rewards-list"
-const CONFIRM_BUTTONS_CLASS_NAME = 'ScCoreButton-sc-ocjdkq-0 ScCoreButtonPrimary-sc-ocjdkq-1 ibtYyW eVWnXL';
-
-const $className = (className) => document.getElementsByClassName(className);
-const $qSelectorAll = (query) => document.querySelectorAll(query);
-
-let btnOpenRedeems = $qSelectorAll('[aria-label="Points Balance"]')[0];
-let btnRedeem;
-let btnConfirm;
+let getOpenRedeemsMenuButton = () => document.querySelector('[aria-label="Bits and Points Balances"]');
+let getRedeemButton = () => document.querySelector(`[title="${TARGET_REDEEM}"]`).parentElement.parentElement.firstChild;
+let getConfirmButton = () => document.querySelector('[data-test-selector="RewardText"]').parentNode.parentElement.parentElement.parentElement;
 
 let iteration = 0;
-let maxIterations = 1;
+let maxIterations = 100;
 const q = () => iteration = maxIterations;
 
 const States = {
@@ -37,46 +31,35 @@ const autoClick = (state) => {
   switch (state) {
     case States.INITIAL:
       console.log('Emergency stop: use `q()` to stop\nopening rewards div');
-      if ($className(REDEEMS_CLASS_NAME).length > 0) {
+      if (getOpenRedeemsMenuButton() === null) {
         autoClicker(state);
         return;
       }
 
-      btnOpenRedeems.click();
+      getOpenRedeemsMenuButton().click();
       autoClicker(nextState(state));
       return;
 
     case States.WAITING_FOR_REDEEM_BUTTON:
       console.log(`waiting for redeem button "${TARGET_REDEEM}"`);
-      let redeems = Array.from($className(REDEEMS_CLASS_NAME)[0].children);
-      redeems = redeems.filter(redeem => redeem.children.length > 0 && redeem.children[0].children.length > 1 && redeem.children[0].children[1].innerText === TARGET_REDEEM);
-      if (redeems.length === 0) {
+      if (getRedeemButton() === null) {
         autoClicker(state);
         return;
       }
 
-      btnRedeem = redeems[0].children[0].children[0];
-      btnRedeem.click();
+      getRedeemButton().click();
       autoClicker(nextState(state));
       return;
 
     case States.WAITING_FOR_CONFIRM_BUTTON:
       console.log('waiting for confirm redeem button');
-      let confirmButtonsDivs = $className(CONFIRM_BUTTONS_CLASS_NAME);
-      if (confirmButtonsDivs.length === 0) {
+      if (getConfirmButton() === null) {
         autoClicker(state);
         return;
       }
 
-      let confirmButtons = Array.from(confirmButtonsDivs).filter(elm => elm.innerHTML.includes('>Redeem<'));
-      if (confirmButtons.length === 0) {
-        autoClicker(state);
-        return;
-      }
-
-      btnConfirm = confirmButtons[0].children[0];
-      // btnConfirm.click();
-      btnOpenRedeems.click();
+      getConfirmButton().click();
+      getOpenRedeemsMenuButton().click();
       iteration++;
       autoClicker(nextState(state));
       return;
